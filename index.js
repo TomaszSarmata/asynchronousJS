@@ -10,7 +10,7 @@ fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
       console.log(res.body.message);
 
       fs.writeFile("dog-img.txt", res.body.message, (err) => {
-        console.log(err);
+        console.log("Random dog image saved  to file");
       });
     });
 });
