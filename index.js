@@ -11,6 +11,15 @@ const readFilePro = (file) => {
   });
 };
 
+const writeFilePro = (file, data) => {
+  return new Promise((resolve, reject) => {
+    fs.writeFile(file, data, (err) => {
+      if (err) reject("Could not write file");
+      resolve("Success, data written into the file successffully");
+    });
+  });
+};
+
 //calling the function that will return the promise and so .then handler is available for us.
 readFilePro(`${__dirname}/dog.txt`).then((data) => {
   console.log(`Breed: ${data}`);
