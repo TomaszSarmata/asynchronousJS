@@ -1,6 +1,15 @@
 const fs = require("fs");
 const superagent = require("superagent");
 
+const readFilePro = (file) => {
+  return new Promise((resolve, reject) => {
+    fs.readFile(file, (err, data) => {
+      if (err) reject("I could not finde the file");
+      resolve(data);
+    });
+  });
+};
+
 //below demostrating how we relly on call backs to get data that we then use to fetch data from api endpoint and then using another cb to clg that data
 fs.readFile(`${__dirname}/dog.txt`, (err, data) => {
   console.log(`Breed: ${data}`);
