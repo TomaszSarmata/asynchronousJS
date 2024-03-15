@@ -21,17 +21,17 @@ const writeFilePro = (file, data) => {
 };
 
 //calling the function that will return the promise and so .then handler is available for us.
-readFilePro(`${__dirname}/dog.txt`).then((data) => {
-  console.log(`Breed: ${data}`);
-  superagent
-    .get(`https://dog.ceo/api/breed/${data}/images/random`)
-    .then((res) => {
-      console.log(res.body.message);
+readFilePro(`${__dirname}/dog.txt`)
+  .then((data) => {
+    console.log(`Breed: ${data}`);
+    return superagent.get(`https://dog.ceo/api/breed/${data}/images/random`);
+  })
+  .then((res) => {
+    console.log(res.body.message);
 
-      fs.writeFile("dog-img.txt", res.body.message, (err) => {
-        if (err) return console.log(err.message);
-        console.log("Random dog image saved  to file");
-      });
-    })
-    .catch((err) => console.log(err.message));
-});
+    fs.writeFile("dog-img.txt", res.body.message, (err) => {
+      if (err) return console.log(err.message);
+      console.log("Random dog image saved  to file");
+    });
+  })
+  .catch((err) => console.log(err.message));
