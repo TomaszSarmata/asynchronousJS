@@ -24,7 +24,7 @@ const writeFilePro = (file, data) => {
 
 const getDogPic = async () => {
   try {
-    const data = await readFilePro(`${__dirname}/dogggg.txt`);
+    const data = await readFilePro(`${__dirname}/dog.txt`);
     console.log(`Breed: ${data}`);
 
     const res = await superagent.get(
@@ -42,16 +42,28 @@ const getDogPic = async () => {
   );
   return "I should get printed as normal but instead I will appear as Promise pending";
 };
-console.log("1: Will get dog pics");
-getDogPic()
-  .then((x) => {
+
+(async () => {
+  try {
+    console.log("1: Will get dog pics");
+    const x = await getDogPic(); //so here our program will stop until we get the value from our promises
     console.log(x);
     console.log("2: Done getting dog pic!!!");
-  })
-  .catch((err) => {
-    console.log("Error!!!! booooom 💥", err);
-  });
-console.log("3: Oh hang on! Why did I log ahead of the async await???");
+  } catch (err) {
+    console.log("Error!!! 💥");
+  }
+})();
+
+// console.log("1: Will get dog pics");
+// getDogPic()
+//   .then((x) => {
+//     console.log(x);
+//     console.log("2: Done getting dog pic!!!");
+//   })
+//   .catch((err) => {
+//     console.log("Error!!!! booooom 💥", err);
+//   });
+// console.log("3: Oh hang on! Why did I log ahead of the async await???");
 
 //calling the function that will return the promise and so .then handler is available for us.
 // readFilePro(`${__dirname}/dog.txt`)
