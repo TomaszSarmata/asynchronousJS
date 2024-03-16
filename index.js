@@ -5,7 +5,7 @@ const superagent = require("superagent");
 const readFilePro = (file) => {
   return new Promise((resolve, reject) => {
     fs.readFile(file, (err, data) => {
-      if (err) reject("I could not finde the file");
+      if (err) reject("I could not find the file");
       resolve(data);
     });
   });
@@ -24,7 +24,7 @@ const writeFilePro = (file, data) => {
 
 const getDogPic = async () => {
   try {
-    const data = await readFilePro(`${__dirname}/dog.txt`);
+    const data = await readFilePro(`${__dirname}/dogggg.txt`);
     console.log(`Breed: ${data}`);
 
     const res = await superagent.get(
@@ -34,7 +34,8 @@ const getDogPic = async () => {
     await writeFilePro("dog-img.txt", res.body.message);
     console.log("Random dog image saved to file!");
   } catch (err) {
-    console.log("error:", err);
+    // console.log("error:", err);
+    throw err;
   }
   console.log(
     "2: I should come 2nd but instead I get printed last. It's because I am being executed in the event loop"
@@ -42,9 +43,14 @@ const getDogPic = async () => {
   return "I should get printed as normal but instead I will appear as Promise pending";
 };
 console.log("1: Will get dog pics");
-const x = getDogPic();
-console.log(x);
-console.log("2: Done getting dog pic!!!");
+getDogPic()
+  .then((x) => {
+    console.log(x);
+    console.log("2: Done getting dog pic!!!");
+  })
+  .catch((err) => {
+    console.log("Error!!!! booooom 💥", err);
+  });
 console.log("3: Oh hang on! Why did I log ahead of the async await???");
 
 //calling the function that will return the promise and so .then handler is available for us.
