@@ -36,9 +36,16 @@ const getDogPic = async () => {
   } catch (err) {
     console.log("error:", err);
   }
+  console.log(
+    "2: I should come 2nd but instead I get printed last. It's because I am being executed in the event loop"
+  );
+  return "I should get printed as normal but instead I will appear as Promise pending";
 };
-
-getDogPic();
+console.log("1: Will get dog pics");
+const x = getDogPic();
+console.log(x);
+console.log("2: Done getting dog pic!!!");
+console.log("3: Oh hang on! Why did I log ahead of the async await???");
 
 //calling the function that will return the promise and so .then handler is available for us.
 // readFilePro(`${__dirname}/dog.txt`)
