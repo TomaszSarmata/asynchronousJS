@@ -38,6 +38,8 @@ const getDogPic = async () => {
     );
 
     const all = await Promise.all([res1Pro, res2Pro, res3Pro]); //this is how we await the resolve values of all promises at the same time
+    const imgs = all.map((el) => el.body.message);
+    console.log(imgs);
 
     console.log(res.body.message);
     await writeFilePro("dog-img.txt", res.body.message);
